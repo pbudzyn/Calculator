@@ -94,6 +94,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AnalizerClass\AnalizerClass.csproj">
+      <Project>{24d7441f-621f-4aeb-8477-674ac62faee7}</Project>
+      <Name>AnalizerClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CalcClass\CalcClass.csproj">
+      <Project>{2ca2903f-1bf1-437b-8277-3189b41c7baf}</Project>
+      <Name>CalcClass</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
