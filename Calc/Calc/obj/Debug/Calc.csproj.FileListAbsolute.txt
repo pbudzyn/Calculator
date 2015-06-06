@@ -1,0 +1,13 @@
+c:\users\богдан\documents\visual studio 2013\Projects\Calc\Calc\bin\Debug\Calc.exe.config
+c:\users\богдан\documents\visual studio 2013\Projects\Calc\Calc\bin\Debug\Calc.exe
+c:\users\богдан\documents\visual studio 2013\Projects\Calc\Calc\bin\Debug\Calc.pdb
+c:\users\богдан\documents\visual studio 2013\Projects\Calc\Calc\obj\Debug\Calc.csprojResolveAssemblyReference.cache
+c:\users\богдан\documents\visual studio 2013\Projects\Calc\Calc\obj\Debug\MainWindow.baml
+c:\users\богдан\documents\visual studio 2013\Projects\Calc\Calc\obj\Debug\MainWindow.g.cs
+c:\users\богдан\documents\visual studio 2013\Projects\Calc\Calc\obj\Debug\App.g.cs
+c:\users\богдан\documents\visual studio 2013\Projects\Calc\Calc\obj\Debug\Calc_MarkupCompile.cache
+c:\users\богдан\documents\visual studio 2013\Projects\Calc\Calc\obj\Debug\Calc.g.resources
+c:\users\богдан\documents\visual studio 2013\Projects\Calc\Calc\obj\Debug\Calc.Properties.Resources.resources
+c:\users\богдан\documents\visual studio 2013\Projects\Calc\Calc\obj\Debug\Calc.csproj.GenerateResource.Cache
+c:\users\богдан\documents\visual studio 2013\Projects\Calc\Calc\obj\Debug\Calc.exe
+c:\users\богдан\documents\visual studio 2013\Projects\Calc\Calc\obj\Debug\Calc.pdb
