@@ -22,6 +22,8 @@ namespace Calc
     /// </summary>
     public partial class MainWindow : Window
     {
+        private long memory = 0;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -150,5 +152,39 @@ namespace Calc
         }
 
         #endregion
+
+        private void Button_Click_21(object sender, RoutedEventArgs e)
+        {
+            if(memory != 0)
+            {
+                Input.Text += memory.ToString();
+            }
+        }
+
+        private void Button_Click_22(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if(!String.IsNullOrWhiteSpace(Output.Text))
+                    memory = MathFunctions.Add(memory, Convert.ToInt64(Output.Text));
+            }
+            catch (OverflowException ex)
+            {
+                Output.Text = "Error 06 - Дуже мале, або дуже велике значення числа для int. Числа повинні бути в межах від -2147483648 до 2147483647.";
+            }
+            catch (InvalidOperationException ex)
+            {
+                Output.Text = "Неможливо додати Result, невірний тип";
+            }
+            catch (Exception ex)
+            {
+                Output.Text = ex.Message;
+            }
+        }
+
+        private void Button_Click_23(object sender, RoutedEventArgs e)
+        {
+            memory = 0;
+        }
     }
 }
