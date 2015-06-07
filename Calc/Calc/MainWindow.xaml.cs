@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AnalizerClass;
+using CalcClass;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,211 +29,125 @@ namespace Calc
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            PostfixNotationExpression calc = new PostfixNotationExpression();
+            Analizer calc = new Analizer();
 
-            Output.Text = calc.result(Input.Text).ToString();
+            Output.Text = calc.Estimate(Input.Text);
         }
-    }
 
-    public class PostfixNotationExpression
-    {
-        public PostfixNotationExpression()
+        #region clava bind
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            operators = new List<string>(standart_operators);
+            Input.Text += '1';
         }
-        private List<string> operators;
-        private List<string> standart_operators =
-            new List<string>(new string[] { "(", ")", "+", "-", "*", "/", "^" });
 
-        private IEnumerable<string> Separate(string input)
+        private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            int pos = 0;
-            while (pos < input.Length)
+            Input.Text += '2';
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            Input.Text += '3';
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            Input.Text += '4';
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            Input.Text += '5';
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            Input.Text += '6';
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            Input.Text += '7';
+        }
+
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            Input.Text += '8';
+        }
+
+        private void Button_Click_9(object sender, RoutedEventArgs e)
+        {
+            Input.Text += '9';
+        }
+
+        private void Button_Click_10(object sender, RoutedEventArgs e)
+        {
+            Input.Text += '0';
+        }
+
+        private void Button_Click_11(object sender, RoutedEventArgs e)
+        {
+            Input.Text += '/';
+        }
+
+        private void Button_Click_12(object sender, RoutedEventArgs e)
+        {
+            Input.Text += '*';
+        }
+
+        private void Button_Click_13(object sender, RoutedEventArgs e)
+        {
+            Input.Text += '-';
+        }
+
+        private void Button_Click_14(object sender, RoutedEventArgs e)
+        {
+            Input.Text += '+';
+        }
+
+        private void Button_Click_15(object sender, RoutedEventArgs e)
+        {
+            Input.Text += 'm';
+        }
+
+        private void Button_Click_16(object sender, RoutedEventArgs e)
+        {
+            if (Input.Text[Input.Text.Length - 1] == '-')
             {
-                string s = string.Empty + input[pos];
-
-                if ((input[pos] == '+' && pos == 0) || (input[pos] == '-' && pos == 0))
+                Input.Text = Input.Text.Remove(Input.Text.Length - 1);
+                Input.Text += '+';
+            }
+            else
+            {
+                if (Input.Text[Input.Text.Length - 1] == '+')
                 {
-                    s = input[pos].ToString(); pos++;
-                    if (!standart_operators.Contains(input[pos].ToString()))
-                    {
-                        if (Char.IsDigit(input[pos]))
-                            for (int i = pos; i < input.Length &&
-                                (Char.IsDigit(input[i]) || input[i] == ',' || input[i] == '.'); i++)
-                                s += input[i];
-                        else if (Char.IsLetter(input[pos]))
-                            for (int i = pos; i < input.Length &&
-                                (Char.IsLetter(input[i]) || Char.IsDigit(input[i])); i++)
-                                s += input[i];
-                    }
-                    pos--;
+                    Input.Text = Input.Text.Remove(Input.Text.Length - 1);
+                    Input.Text += '-';
                 }
-                else
-                {
-                    if ((input[pos] == '+' && input[pos - 1] == '(') || (input[pos] == '-' && input[pos - 1] == '('))
-                    { 
-                        s = input[pos].ToString(); pos++;
-                        if (!standart_operators.Contains(input[pos].ToString()))
-                        {
-                            if (Char.IsDigit(input[pos]))
-                                for (int i = pos; i < input.Length &&
-                                    (Char.IsDigit(input[i]) || input[i] == ',' || input[i] == '.'); i++)
-                                    s += input[i];
-                            else if (Char.IsLetter(input[pos]))
-                                for (int i = pos; i < input.Length &&
-                                    (Char.IsLetter(input[i]) || Char.IsDigit(input[i])); i++)
-                                    s += input[i];
-                        }
-                        pos--;
-                    }
-                }
-
-                if (!standart_operators.Contains(input[pos].ToString()))
-                {
-                    if (Char.IsDigit(input[pos]))
-                        for (int i = pos + 1; i < input.Length &&
-                            (Char.IsDigit(input[i]) || input[i] == ',' || input[i] == '.'); i++)
-                            s += input[i];
-                    else if (Char.IsLetter(input[pos]))
-                        for (int i = pos + 1; i < input.Length &&
-                            (Char.IsLetter(input[i]) || Char.IsDigit(input[i])); i++)
-                            s += input[i];
-                }
-                yield return s;
-                pos += s.Length;
             }
         }
-        private byte GetPriority(string s)
+
+        private void Button_Click_17(object sender, RoutedEventArgs e)
         {
-            switch (s)
-            {
-                case "(":
-                case ")":
-                    return 0;
-                case "+":
-                case "-":
-                    return 1;
-                case "*":
-                case "/":
-                    return 2;
-                case "^":
-                    return 3;
-                default:
-                    return 4;
-            }
+            Input.Text = "";
         }
 
-        public string[] ConvertToPostfixNotation(string input)
+        private void Button_Click_18(object sender, RoutedEventArgs e)
         {
-            List<string> outputSeparated = new List<string>();
-            Stack<string> stack = new Stack<string>();
-            foreach (string c in Separate(input))
-            {
-                if (operators.Contains(c))
-                {
-                    if (stack.Count > 0 && !c.Equals("("))
-                    {
-                        if (c.Equals(")"))
-                        {
-                            string s = stack.Pop();
-                            while (s != "(")
-                            {
-                                outputSeparated.Add(s);
-                                s = stack.Pop();
-                            }
-                        }
-                        else if (GetPriority(c) > GetPriority(stack.Peek()))
-                            stack.Push(c);
-                        else
-                        {
-                            while (stack.Count > 0 && GetPriority(c) <= GetPriority(stack.Peek()))
-                                outputSeparated.Add(stack.Pop());
-                            stack.Push(c);
-                        }
-                    }
-                    else
-                        stack.Push(c);
-                }
-                else
-                    outputSeparated.Add(c);
-            }
-            if (stack.Count > 0)
-                foreach (string c in stack)
-                    outputSeparated.Add(c);
-
-            return outputSeparated.ToArray();
+            Input.Text = Input.Text.Remove(Input.Text.Length - 1);
         }
-        public decimal result(string input)
+
+        private void Button_Click_19(object sender, RoutedEventArgs e)
         {
-            Stack<string> stack = new Stack<string>();
-            Queue<string> queue = new Queue<string>(ConvertToPostfixNotation(input));
-            string str = queue.Dequeue();
-            while (queue.Count >= 0)
-            {
-                if (!operators.Contains(str))
-                {
-                    stack.Push(str);
-                    str = queue.Dequeue();
-                }
-                else
-                {
-                    decimal summ = 0;
-                    try
-                    {
-
-                        switch (str)
-                        {
-
-                            case "+":
-                                {
-                                    decimal a = Convert.ToDecimal(stack.Pop());
-                                    decimal b = Convert.ToDecimal(stack.Pop());
-                                    summ = a + b;
-                                    break;
-                                }
-                            case "-":
-                                {
-                                    decimal a = Convert.ToDecimal(stack.Pop());
-                                    decimal b = Convert.ToDecimal(stack.Pop());
-                                    summ = b - a;
-                                    break;
-                                }
-                            case "*":
-                                {
-                                    decimal a = Convert.ToDecimal(stack.Pop());
-                                    decimal b = Convert.ToDecimal(stack.Pop());
-                                    summ = b * a;
-                                    break;
-                                }
-                            case "/":
-                                {
-                                    decimal a = Convert.ToDecimal(stack.Pop());
-                                    decimal b = Convert.ToDecimal(stack.Pop());
-                                    summ = b / a;
-                                    break;
-                                }
-                            case "^":
-                                {
-                                    decimal a = Convert.ToDecimal(stack.Pop());
-                                    decimal b = Convert.ToDecimal(stack.Pop());
-                                    summ = Convert.ToDecimal(Math.Pow(Convert.ToDouble(b), Convert.ToDouble(a)));
-                                    break;
-                                }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    stack.Push(summ.ToString());
-                    if (queue.Count > 0)
-                        str = queue.Dequeue();
-                    else
-                        break;
-                }
-
-            }
-            return Convert.ToDecimal(stack.Pop());
+            Input.Text += ')';
         }
+
+        private void Button_Click_20(object sender, RoutedEventArgs e)
+        {
+            Input.Text += '(';
+        }
+
+        #endregion
     }
 }
