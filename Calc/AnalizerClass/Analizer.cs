@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace AnalizerClass
 {
@@ -161,21 +162,33 @@ namespace AnalizerClass
         ///<returns>результат обчислень,або повідомлення про помилку</returns>
         public string RunEstimate(string input)
         {
+            if (input.Length > 65536)
+            {
+                return "Error 07 — Дуже довгий вираз. Максмальная довжина — 65536 символів.";
+            }
+
+            int countOfSumbols = input.Count(n => Char.IsNumber(n) || standart_operators.Contains(n.ToString()));
+            if (countOfSumbols > 30)
+            {
+                return "Error 08 — Сумарна кількість чисел і операторів перевищує 30.";
+            }
+
             Stack<string> stack = new Stack<string>();
             Queue<string> queue = new Queue<string>(Format(input));
-            string str = queue.Dequeue();
-            while (queue.Count >= 0)
+
+            try
             {
-                if (!operators.Contains(str))
+                string str = queue.Dequeue();
+                while (queue.Count >= 0)
                 {
-                    stack.Push(str);
-                    str = queue.Dequeue();
-                }
-                else
-                {
-                    decimal summ = 0;
-                    try
+                    if (!operators.Contains(str))
                     {
+                        stack.Push(str);
+                        str = queue.Dequeue();
+                    }
+                    else
+                    {
+                        decimal summ = 0;
 
                         switch (str)
                         {
@@ -216,19 +229,31 @@ namespace AnalizerClass
                                     break;
                                 }
                         }
+                        stack.Push(summ.ToString());
+                        if (queue.Count > 0)
+                            str = queue.Dequeue();
+                        else
+                            break;
                     }
-                    catch (Exception ex)
-                    {
-                        //MessageBox.Show(ex.Message);
-                    }
-                    stack.Push(summ.ToString());
-                    if (queue.Count > 0)
-                        str = queue.Dequeue();
-                    else
-                        break;
                 }
-
             }
+            catch (OverflowException ex)
+            {
+                return "Error 06 - Дуже мале, або дуже велике значення числа для int. Числа повинні бути в межах від -2147483648 до 2147483647.";
+            }
+            catch (DivideByZeroException ex)
+            {
+                return "Error 09 – Помилка ділення на 0.";
+            }
+            catch (InvalidOperationException ex)
+            {
+                return "Error 03 — Невірна синтаксична конструкція вхідного виразу..";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
             return stack.Pop();
         }
         /// <summary>
@@ -260,5 +285,6 @@ namespace AnalizerClass
                     return 4;
             }
         }
+
     }
 }

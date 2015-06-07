@@ -131,6 +131,7 @@ namespace Calc
         private void Button_Click_17(object sender, RoutedEventArgs e)
         {
             Input.Text = "";
+            Output.Text = "";
         }
 
         private void Button_Click_18(object sender, RoutedEventArgs e)
