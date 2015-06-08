@@ -174,7 +174,7 @@ namespace Calc
             }
             catch (InvalidOperationException ex)
             {
-                Output.Text = "Неможливо додати Result, невірний тип";
+                Output.Text = "Неможливо додати Result, оскільки невірний тип";
             }
             catch (Exception ex)
             {
